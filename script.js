@@ -1,3 +1,59 @@
+function getRandomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+  
+  function generatePrediction() {
+    const randomValue = getRandomNumber(1, 5);
+    let prediction = '';
+    
+    switch (randomValue) {
+      case 1:
+        prediction = "Скоро вы отправитесь в поездку!";
+        break;
+      case 2:
+        prediction = "Будет новое приятное знакомство!";
+        break;
+      case 3:
+        prediction = "Сегодня чаще смотри по сторонам, рядом кое-что интересное!";
+        break;
+      case 4:
+        prediction = "Не отказывай себе в отдыхе, он обещает быть незабываемым!";
+        break;
+      case 5:
+        prediction = "Улыбайся! Кто-то может влюбиться в твою улыбку!";
+        break;
+    }
+  
+    const probability = getRandomNumber(0, 100) + '%';
+
+    document.querySelector('.current-forecast h1').textContent = prediction;
+    document.querySelector('.current-forecast p').textContent = `Вероятность сбывания: ${probability}`;
+    
+    const result = { prediction: prediction, probability: probability };
+
+    return result;
+  } 
+
+  document.querySelector('.forecast-btn').addEventListener('click', () => {
+    const { prediction: prediction, probability: probability } = generatePrediction();
+  
+    const forecastItemTemplate = document.querySelector('#forecast-item'); 
+
+    function makeForecastByTemplate(prediction, probability) {
+        const newForecastItem = forecastItemTemplate.content.cloneNode(true);
+
+        newForecastItem.querySelector('h3').textContent = prediction;
+        newForecastItem.querySelector('p').textContent = `Вероятность сбывания: ${probability}`;
+
+        return newForecastItem;
+    }
+
+    const newForecastItem = makeForecastByTemplate(prediction, probability);
+
+    const forecastsList = document.querySelector('.forecasts'); 
+    forecastsList.append(newForecastItem); 
+});
+  
 /* Генерация предсказания должна происходить при клике на кнопку «предсказать судьбу» */
 
 /* Заранее заготовь 3-5 предсказаний и в зависимости от того, как лягут карты судьбы (или что скажет Math.random) показывай их пользователю */
