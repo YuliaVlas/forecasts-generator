@@ -2,56 +2,56 @@ function getRandomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
   
-  function generatePrediction() {
-    const randomValue = getRandomNumber(1, 5);
-    let prediction = '';
+function generatePrediction() {
+  const randomValue = getRandomNumber(1, 5);
+  let prediction = '';
     
-    switch (randomValue) {
-      case 1:
-        prediction = "Скоро вы отправитесь в поездку!";
-        break;
-      case 2:
-        prediction = "Будет новое приятное знакомство!";
-        break;
-      case 3:
-        prediction = "Сегодня чаще смотри по сторонам, рядом кое-что интересное!";
-        break;
-      case 4:
-        prediction = "Не отказывай себе в отдыхе, он обещает быть незабываемым!";
-        break;
-      case 5:
-        prediction = "Улыбайся! Кто-то может влюбиться в твою улыбку!";
-        break;
+  switch (randomValue) {
+    case 1:
+      prediction = "Скоро вы отправитесь в поездку!";
+      break;
+    case 2:
+      prediction = "Будет новое приятное знакомство!";
+      break;
+    case 3:
+      prediction = "Сегодня чаще смотри по сторонам, рядом кое-что интересное!";
+      break;
+    case 4:
+      prediction = "Не отказывай себе в отдыхе, он обещает быть незабываемым!";
+      break;
+    case 5:
+      prediction = "Улыбайся! Кто-то может влюбиться в твою улыбку!";
+      break;
     }
   
-    const probability = getRandomNumber(0, 100) + '%';
+  const probability = getRandomNumber(0, 100) + '%';
 
-    document.querySelector('.current-forecast h1').textContent = prediction;
-    document.querySelector('.current-forecast p').textContent = `Вероятность сбывания: ${probability}`;
-    
-    const result = { prediction: prediction, probability: probability };
+  document.querySelector('.current-forecast h1').textContent = prediction;
+  document.querySelector('.current-forecast p').textContent = `Вероятность сбывания: ${probability}`;
 
-    return result;
-  } 
+  const result = { prediction: prediction, probability: probability };
 
-  const forecastItemTemplate = document.querySelector('#forecast-item'); 
+  return result;
+} 
 
-    function makeForecastByTemplate(prediction, probability) {
-        const newForecastItem = forecastItemTemplate.content.cloneNode(true);
+const forecastItemTemplate = document.querySelector('#forecast-item'); 
 
-        newForecastItem.querySelector('h3').textContent = prediction;
-        newForecastItem.querySelector('p').textContent = `Вероятность сбывания: ${probability}`;
+  function makeForecastByTemplate(prediction, probability) {
+      const newForecastItem = forecastItemTemplate.content.cloneNode(true);
 
-        return newForecastItem;
-    }
+      newForecastItem.querySelector('h3').textContent = prediction;
+      newForecastItem.querySelector('p').textContent = `Вероятность сбывания: ${probability}`;
 
-  document.querySelector('.forecast-btn').addEventListener('click', () => {
-    const { prediction: prediction, probability: probability } = generatePrediction();
-  
-    const newForecastItem = makeForecastByTemplate(prediction, probability);
+      return newForecastItem;
+  }
 
-    const forecastsList = document.querySelector('.forecasts'); 
-    forecastsList.prepend(newForecastItem); 
+document.querySelector('.forecast-btn').addEventListener('click', () => {
+  const { prediction: prediction, probability: probability } = generatePrediction();
+
+  const newForecastItem = makeForecastByTemplate(prediction, probability);
+
+  const forecastsList = document.querySelector('.forecasts'); 
+  forecastsList.prepend(newForecastItem); 
 });
   
 /* Генерация предсказания должна происходить при клике на кнопку «предсказать судьбу» */
