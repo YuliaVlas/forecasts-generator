@@ -34,10 +34,7 @@ function getRandomNumber(min, max) {
     return result;
   } 
 
-  document.querySelector('.forecast-btn').addEventListener('click', () => {
-    const { prediction: prediction, probability: probability } = generatePrediction();
-  
-    const forecastItemTemplate = document.querySelector('#forecast-item'); 
+  const forecastItemTemplate = document.querySelector('#forecast-item'); 
 
     function makeForecastByTemplate(prediction, probability) {
         const newForecastItem = forecastItemTemplate.content.cloneNode(true);
@@ -48,10 +45,13 @@ function getRandomNumber(min, max) {
         return newForecastItem;
     }
 
+  document.querySelector('.forecast-btn').addEventListener('click', () => {
+    const { prediction: prediction, probability: probability } = generatePrediction();
+  
     const newForecastItem = makeForecastByTemplate(prediction, probability);
 
     const forecastsList = document.querySelector('.forecasts'); 
-    forecastsList.append(newForecastItem); 
+    forecastsList.prepend(newForecastItem); 
 });
   
 /* Генерация предсказания должна происходить при клике на кнопку «предсказать судьбу» */
